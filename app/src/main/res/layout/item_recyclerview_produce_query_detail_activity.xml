@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal">
+    <!-- 名称 -->
+    <TextView
+        android:id="@+id/tv_material_name_item_recyclerview_produce_query_detal_activity"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:gravity="center" />
+
+    <!-- 实际 -->
+    <TextView
+        android:id="@+id/tv_reality_item_recyclerview_produce_query_detal_activity"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:gravity="center" />
+
+    <!-- 配比 -->
+    <TextView
+        android:id="@+id/tv_matching_item_recyclerview_produce_query_detal_activity"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:gravity="center" />
+
+    <!-- 误差 -->
+    <TextView
+        android:id="@+id/tv_deviation_item_recyclerview_produce_query_detal_activity"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:gravity="center" />
+
+    <!-- 误差率 -->
+    <TextView
+        android:id="@+id/tv_deviation_rate_item_recyclerview_produce_query_detal_activity"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:gravity="center" />
+
+</LinearLayout>

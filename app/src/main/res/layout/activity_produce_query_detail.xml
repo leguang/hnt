@@ -1,0 +1,369 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:card_view="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/material_grey_50"
+        android:orientation="vertical">
+
+        <include layout="@layout/toolbar" />
+
+        <in.srain.cube.views.ptr.PtrFrameLayout xmlns:cube_ptr="http://schemas.android.com/apk/res-auto"
+            android:id="@+id/ptr_produce_query_detail_activity"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/lightest_gray"
+            cube_ptr:ptr_duration_to_close="200"
+            cube_ptr:ptr_duration_to_close_header="1000"
+            cube_ptr:ptr_keep_header_when_refresh="true"
+            cube_ptr:ptr_pull_to_fresh="false"
+            cube_ptr:ptr_ratio_of_header_height_to_refresh="1.2"
+            cube_ptr:ptr_resistance="1.7">
+
+            <com.shtoone.shtw.ui.PageStateLayout
+                android:id="@+id/psl_produce_query_detail_activity"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                app:emptyView="@layout/page_state_empty_view"
+                app:errorView="@layout/page_state_error_view"
+                app:loadingView="@layout/page_state_loading_view"
+                app:netErrorView="@layout/page_state_net_error_view">
+
+                <android.support.v4.widget.NestedScrollView
+                    android:id="@+id/nsv_produce_query_detail_activity"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginTop="5dp"
+                        android:orientation="vertical">
+
+                        <!--详情数据部分-->
+                        <android.support.v7.widget.CardView
+                            android:id="@+id/cv_produce_query_detail_activity"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="4dp"
+                            android:layout_marginRight="4dp"
+                            android:background="?android:attr/selectableItemBackground"
+                            card_view:cardCornerRadius="@dimen/card_Corner_Radius">
+
+                            <RelativeLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:padding="5dp">
+
+                                <TextView
+                                    android:id="@+id/tv_title_produce_query_detail_activity"
+                                    style="@style/DetailTextTheme"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:text="数据详情" />
+
+
+                                <TextView
+                                    android:id="@+id/textview0"
+                                    style="@style/YalijiDetailTextTheme"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_below="@+id/tv_title_produce_query_detail_activity"
+                                    android:text="数    量：" />
+
+                                <TextView
+                                    android:id="@+id/tv0_produce_query_detail_activity"
+                                    style="@style/YalijiDetailTextTheme"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_alignBottom="@id/textview0"
+                                    android:layout_toRightOf="@+id/textview0" />
+
+                                <TextView
+                                    android:id="@+id/textview1"
+                                    style="@style/YalijiDetailTextTheme"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_below="@+id/textview0"
+                                    android:text="拌合站：" />
+
+                                <TextView
+                                    android:id="@+id/tv1_produce_query_detail_activity"
+                                    style="@style/YalijiDetailTextTheme"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_alignBottom="@id/textview1"
+                                    android:layout_toRightOf="@+id/textview1" />
+
+                                <TextView
+                                    android:id="@+id/textview2"
+                                    style="@style/YalijiDetailTextTheme"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_below="@+id/textview1"
+                                    android:text="工单号：" />
+
+                                <TextView
+                                    android:id="@+id/tv2_produce_query_detail_activity"
+                                    style="@style/YalijiDetailTextTheme"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_alignBottom="@id/textview2"
+                                    android:layout_toRightOf="@+id/textview2" />
+
+                                <TextView
+                                    android:id="@+id/textview3"
+                                    style="@style/YalijiDetailTextTheme"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_below="@+id/textview2"
+                                    android:text="操作者：" />
+
+                                <TextView
+                                    android:id="@+id/tv3_produce_query_detail_activity"
+                                    style="@style/YalijiDetailTextTheme"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_alignBottom="@id/textview3"
+                                    android:layout_toRightOf="@+id/textview3" />
+
+                                <TextView
+                                    android:id="@+id/textview4"
+                                    style="@style/YalijiDetailTextTheme"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_below="@+id/textview3"
+                                    android:text="出料时间：" />
+
+                                <TextView
+                                    android:id="@+id/tv4_produce_query_detail_activity"
+                                    style="@style/YalijiDetailTextTheme"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_alignBottom="@id/textview4"
+                                    android:layout_toRightOf="@+id/textview4" />
+
+                                <TextView
+                                    android:id="@+id/textview5"
+                                    style="@style/YalijiDetailTextTheme"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_below="@+id/textview4"
+                                    android:text="搅拌时长：" />
+
+                                <TextView
+                                    android:id="@+id/tv5_produce_query_detail_activity"
+                                    style="@style/YalijiDetailTextTheme"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_alignBottom="@id/textview5"
+                                    android:layout_toRightOf="@+id/textview5" />
+
+                                <TextView
+                                    android:id="@+id/textview6"
+                                    style="@style/YalijiDetailTextTheme"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_below="@+id/textview5"
+                                    android:text="工程名称：" />
+
+                                <TextView
+                                    android:id="@+id/tv6_produce_query_detail_activity"
+                                    style="@style/YalijiDetailTextTheme"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_alignBottom="@id/textview6"
+                                    android:layout_toRightOf="@+id/textview6" />
+
+                                <TextView
+                                    android:id="@+id/textview7"
+                                    style="@style/YalijiDetailTextTheme"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_below="@+id/textview6"
+                                    android:text="地点里程：" />
+
+                                <TextView
+                                    android:id="@+id/tv7_produce_query_detail_activity"
+                                    style="@style/YalijiDetailTextTheme"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_alignBottom="@id/textview7"
+                                    android:layout_toRightOf="@+id/textview7" />
+
+                                <TextView
+                                    android:id="@+id/textview8"
+                                    style="@style/YalijiDetailTextTheme"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_below="@+id/textview7"
+                                    android:text="浇筑部位：" />
+
+                                <TextView
+                                    android:id="@+id/tv8_produce_query_detail_activity"
+                                    style="@style/YalijiDetailTextTheme"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_alignBottom="@id/textview8"
+                                    android:layout_toRightOf="@+id/textview8" />
+
+                                <TextView
+                                    android:id="@+id/textview9"
+                                    style="@style/YalijiDetailTextTheme"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_below="@+id/textview8"
+                                    android:text="水泥品种：" />
+
+                                <TextView
+                                    android:id="@+id/tv9_produce_query_detail_activity"
+                                    style="@style/YalijiDetailTextTheme"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_alignBottom="@id/textview9"
+                                    android:layout_toRightOf="@+id/textview9" />
+
+                                <TextView
+                                    android:id="@+id/textview10"
+                                    style="@style/YalijiDetailTextTheme"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_below="@+id/textview9"
+                                    android:text="强度等级：" />
+
+                                <TextView
+                                    android:id="@+id/tv10_produce_query_detail_activity"
+                                    style="@style/YalijiDetailTextTheme"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_alignBottom="@id/textview10"
+                                    android:layout_toRightOf="@+id/textview10" />
+
+                                <TextView
+                                    android:id="@+id/textview11"
+                                    style="@style/YalijiDetailTextTheme"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_below="@+id/textview10"
+                                    android:text="外加剂品牌：" />
+
+                                <TextView
+                                    android:id="@+id/tv11_produce_query_detail_activity"
+                                    style="@style/YalijiDetailTextTheme"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_alignBottom="@id/textview11"
+                                    android:layout_toRightOf="@+id/textview11" />
+
+                                <TextView
+                                    android:id="@+id/textview12"
+                                    style="@style/YalijiDetailTextTheme"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_below="@+id/textview11"
+                                    android:text="施工配比编号：" />
+
+                                <TextView
+                                    android:id="@+id/tv12_produce_query_detail_activity"
+                                    style="@style/YalijiDetailTextTheme"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_alignBottom="@id/textview12"
+                                    android:layout_toRightOf="@+id/textview12" />
+                            </RelativeLayout>
+                        </android.support.v7.widget.CardView>
+
+                        <!--表部分-->
+                        <android.support.v7.widget.CardView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="20dp"
+                            android:layout_marginLeft="4dp"
+                            android:layout_marginRight="4dp"
+                            android:layout_marginTop="40dp"
+                            card_view:cardCornerRadius="@dimen/card_Corner_Radius">
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:orientation="vertical"
+                                android:padding="3dp">
+
+                                <TextView
+                                    style="@style/DetailTextTheme"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:text="核算表" />
+
+                                <!-- 表头部分 -->
+                                <LinearLayout
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:orientation="horizontal">
+
+                                    <TextView
+                                        android:layout_width="0dp"
+                                        android:layout_height="wrap_content"
+                                        android:layout_weight="1"
+                                        android:gravity="center"
+                                        android:text="@string/material_name" />
+
+                                    <TextView
+                                        android:layout_width="0dp"
+                                        android:layout_height="wrap_content"
+                                        android:layout_weight="1"
+                                        android:gravity="center"
+                                        android:text="@string/reality" />
+
+                                    <TextView
+                                        android:layout_width="0dp"
+                                        android:layout_height="wrap_content"
+                                        android:layout_weight="1"
+                                        android:gravity="center"
+                                        android:text="@string/matching" />
+
+                                    <TextView
+                                        android:layout_width="0dp"
+                                        android:layout_height="wrap_content"
+                                        android:layout_weight="1"
+                                        android:gravity="center"
+                                        android:text="@string/deviation" />
+
+                                    <TextView
+                                        android:layout_width="0dp"
+                                        android:layout_height="wrap_content"
+                                        android:layout_weight="1"
+                                        android:gravity="center"
+                                        android:text="@string/deviation_rate" />
+                                </LinearLayout>
+
+                                <android.support.v7.widget.RecyclerView
+                                    android:id="@+id/rv_produce_query_detail_activity"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent" />
+
+                            </LinearLayout>
+                        </android.support.v7.widget.CardView>
+                    </LinearLayout>
+                </android.support.v4.widget.NestedScrollView>
+            </com.shtoone.shtw.ui.PageStateLayout>
+        </in.srain.cube.views.ptr.PtrFrameLayout>
+    </LinearLayout>
+
+    <!--<android.support.design.widget.FloatingActionButton-->
+    <!--android:id="@+id/fab_produce_query_detail_activity"-->
+    <!--android:layout_width="wrap_content"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:layout_margin="@dimen/fab_margin"-->
+    <!--android:src="@android:drawable/ic_dialog_info"-->
+    <!--android:visibility="gone"-->
+    <!--app:layout_anchor="@id/cv_produce_query_detail_activity"-->
+    <!--app:layout_anchorGravity="bottom|end" />-->
+
+</android.support.design.widget.CoordinatorLayout>
