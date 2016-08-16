@@ -9,11 +9,14 @@ import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
+import android.support.annotation.NonNull;
 import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.TextView;
 
+import com.afollestad.materialdialogs.DialogAction;
+import com.afollestad.materialdialogs.MaterialDialog;
 import com.android.volley.VolleyError;
 import com.dd.CircularProgressButton;
 import com.dinuscxj.progressbar.CircleProgressBar;
@@ -26,8 +29,6 @@ import com.shtoone.shtw.utils.AppUtils;
 import com.shtoone.shtw.utils.HttpUtils;
 import com.shtoone.shtw.utils.NetworkUtils;
 import com.socks.library.KLog;
-
-import cn.pedant.SweetAlert.SweetAlertDialog;
 
 
 public class VersionActivity extends BaseActivity {
@@ -119,21 +120,18 @@ public class VersionActivity extends BaseActivity {
 
             } else {
                 if (!NetworkUtils.isWifiConnected(VersionActivity.this)) {
-
-                    new SweetAlertDialog(VersionActivity.this, SweetAlertDialog.WARNING_TYPE)
-                            .setTitleText("确定要下载吗？")
-                            .setContentText("当前网络不是Wifi网络,是否继续下载？")
-                            .setCancelText("取消")
-                            .setConfirmText("确定")
-                            .showCancelButton(true)
-                            .setCancelClickListener(null)
-                            .setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
+                    new MaterialDialog.Builder(VersionActivity.this)
+                            .title("确定要下载吗？")
+                            .content("当前网络不是Wifi网络,是否继续下载？")
+                            .positiveText("确定")
+                            .onPositive(new MaterialDialog.SingleButtonCallback() {
                                 @Override
-                                public void onClick(SweetAlertDialog sDialog) {
+                                public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
                                     download();
-                                    sDialog.dismissWithAnimation();
+                                    dialog.dismiss();
                                 }
                             })
+                            .negativeText("取消")
                             .show();
                 } else {
                     download();
@@ -148,9 +146,11 @@ public class VersionActivity extends BaseActivity {
             bt_update.setProgress(0);
             bt_update.setProgress(50);
             //检测
-            HttpUtils.getRequest("http://192.168.11.119:8080/zgjjqms/update.json", new HttpUtils.HttpListener() {
+            KLog.e("http://1556it8748.iask.in:50397/update.json");
+            HttpUtils.getRequest("http://1556it8748.iask.in:50397/update.json", new HttpUtils.HttpListener() {
                 @Override
                 public void onSuccess(String response) {
+                    KLog.e(response);
                     if (!TextUtils.isEmpty(response)) {
                         KLog.e(response);
                         mVersionInfoData = new Gson().fromJson(response, VersionInfoData.class);
