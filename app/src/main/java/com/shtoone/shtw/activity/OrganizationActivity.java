@@ -84,12 +84,12 @@ public class OrganizationActivity extends BaseActivity {
         initToolbarBackNavigation(mToolbar);
         treeNodes = new ArrayList<OrganizationBean>();
 
-        ll_container.post(new Runnable() {
-            @Override
-            public void run() {
-                revealView();
-            }
-        });
+//        ll_container.post(new Runnable() {
+//            @Override
+//            public void run() {
+//                revealView();
+//            }
+//        });
 
         initPageStateLayout(mPageStateLayout);
         initPtrFrameLayout(mPtrFrameLayout);

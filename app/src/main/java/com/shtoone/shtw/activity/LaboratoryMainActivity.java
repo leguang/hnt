@@ -15,17 +15,22 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.android.volley.VolleyError;
 import com.google.gson.Gson;
 import com.shtoone.shtw.BaseApplication;
 import com.shtoone.shtw.R;
 import com.shtoone.shtw.activity.base.BaseActivity;
 import com.shtoone.shtw.bean.LaboratoryMainActivityData;
+import com.shtoone.shtw.ui.PageStateLayout;
 import com.shtoone.shtw.utils.ConstantsUtils;
+import com.shtoone.shtw.utils.NetworkUtils;
 import com.shtoone.shtw.utils.SharedPreferencesUtils;
 import com.shtoone.shtw.utils.URL;
 
 import org.json.JSONException;
 import org.json.JSONObject;
+
+import in.srain.cube.views.ptr.PtrFrameLayout;
 
 public class LaboratoryMainActivity extends BaseActivity implements NavigationView.OnNavigationItemSelectedListener {
     private static final String TAG = LaboratoryMainActivity.class.getSimpleName();
@@ -44,7 +49,17 @@ public class LaboratoryMainActivity extends BaseActivity implements NavigationVi
     private TextView tv_yaliji_qualified;
     private TextView tv_yaliji_unqualified;
     private TextView tv_yaliji_handle;
-    private TextView tv_yaliji_handled;
+    private TextView tv_yaliji_not_handle;
+    private PtrFrameLayout mPtrFrameLayout;
+    private PageStateLayout mPageStateLayout;
+    private TextView tv_wannengji_qualified;
+    private TextView tv_wannengji_unqualified;
+    private TextView tv_wannengji_handle;
+    private TextView tv_wannengji_not_handle;
+    private TextView tv_yaliji_time;
+    private TextView tv_wannengji_time;
+    private TextView tv_statistic_time;
+    private Gson mGson;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -61,18 +76,34 @@ public class LaboratoryMainActivity extends BaseActivity implements NavigationVi
         llNavHeader = (LinearLayout) mNavigationView.getHeaderView(0);
         tv_username = (TextView) llNavHeader.findViewById(R.id.tv_username_nav_header_main);
         tv_phone_number = (TextView) llNavHeader.findViewById(R.id.tv_phone_number_nav_header_main);
-        mToolbar = (Toolbar) findViewById(R.id.toolbar_laboratory_main_activity);
+        mToolbar = (Toolbar) findViewById(R.id.toolbar_toolbar);
+        mPtrFrameLayout = (PtrFrameLayout) findViewById(R.id.ptr_laboratory_main_activity);
+        mPageStateLayout = (PageStateLayout) findViewById(R.id.psl_laboratory_main_activity);
         cv_yaliji = (CardView) findViewById(R.id.cv_yaliji_laboratory_main_activity);
         cv_wannengji = (CardView) findViewById(R.id.cv_wannengji_laboratory_main_activity);
         cv_statistic = (CardView) findViewById(R.id.cv_statistic_laboratory_main_activity);
+
         tv_yaliji_qualified = (TextView) findViewById(R.id.tv_yaliji_qualified_laboratory_main_activity);
         tv_yaliji_unqualified = (TextView) findViewById(R.id.tv_yaliji_unqualified_laboratory_main_activity);
         tv_yaliji_handle = (TextView) findViewById(R.id.tv_yaliji_handle_laboratory_main_activity);
-        tv_yaliji_handled = (TextView) findViewById(R.id.tv_yaliji_handled_laboratory_main_activity);
+        tv_yaliji_not_handle = (TextView) findViewById(R.id.tv_yaliji_not_handle_laboratory_main_activity);
 
+        tv_wannengji_qualified = (TextView) findViewById(R.id.tv_wannengji_qualified_laboratory_main_activity);
+        tv_wannengji_unqualified = (TextView) findViewById(R.id.tv_wannengji_unqualified_laboratory_main_activity);
+        tv_wannengji_handle = (TextView) findViewById(R.id.tv_wannengji_handle_laboratory_main_activity);
+        tv_wannengji_not_handle = (TextView) findViewById(R.id.tv_wannengji_not_handle_laboratory_main_activity);
+
+        tv_yaliji_time = (TextView) findViewById(R.id.tv_yaliji_time_laboratory_main_activity);
+        tv_wannengji_time = (TextView) findViewById(R.id.tv_wannengji_time_laboratory_main_activity);
+        tv_statistic_time = (TextView) findViewById(R.id.tv_statistic_time_laboratory_main_activity);
+
+        tv_yaliji_time.setText(BaseApplication.parametersData.endDateTime);
+        tv_wannengji_time.setText(BaseApplication.parametersData.endDateTime);
+        tv_statistic_time.setText(BaseApplication.parametersData.endDateTime);
     }
 
     public void initData() {
+        mGson = new Gson();
         toggle = new ActionBarDrawerToggle(this, mDrawer, mToolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         mDrawer.setDrawerListener(toggle);
         toggle.syncState();
@@ -132,7 +163,8 @@ public class LaboratoryMainActivity extends BaseActivity implements NavigationVi
             }
         });
 
-        refresh();
+        initPageStateLayout(mPageStateLayout);
+        initPtrFrameLayout(mPtrFrameLayout);
     }
 
     @Override
@@ -148,40 +180,74 @@ public class LaboratoryMainActivity extends BaseActivity implements NavigationVi
                 jsonObject = new JSONObject(response);
             } catch (JSONException e) {
                 e.printStackTrace();
-//                mPageStateLayout.showError();
+                mPageStateLayout.showError();
+                return;
             }
-            if (jsonObject.optBoolean("success")) {
-                data = new Gson().fromJson(response, LaboratoryMainActivityData.class);
+            if (jsonObject.optBoolean(ConstantsUtils.SUCCESS)) {
+                data = mGson.fromJson(response, LaboratoryMainActivityData.class);
                 if (null != data) {
                     if (data.isSuccess()) {
-//                        mPageStateLayout.showContent();
-                        setAdapter();
-
+                        mPageStateLayout.showContent();
+                        setViewData();
                     } else {
                         //提示数据为空，展示空状态
-//                        mPageStateLayout.showEmpty();
+                        mPageStateLayout.showEmpty();
                     }
                 } else {
                     //提示数据解析异常，展示错误页面
-//                    mPageStateLayout.showError();
+                    mPageStateLayout.showError();
                 }
             } else {
                 //提示数据为空，展示空状态
-//                mPageStateLayout.showEmpty();
+                mPageStateLayout.showEmpty();
             }
         } else {
             //提示返回数据异常，展示错误页面
-//            mPageStateLayout.showError();
+            mPageStateLayout.showError();
         }
-
     }
 
-    private void setAdapter() {
-        tv_yaliji_qualified.setText(data.getData().getYlQual());
-        tv_yaliji_unqualified.setText(data.getData().getYlDisqual());
-        tv_yaliji_handle.setText(data.getData().getYlHandle());
-        tv_yaliji_handled.setText(data.getData().getYlHandle());
+    @Override
+    public void onRefreshFailed(VolleyError error) {
+        //提示网络数据异常，展示网络错误页面。此时：1.可能是本机网络有问题，2.可能是服务器问题
+        if (!NetworkUtils.isConnected(this)) {
+            //提示网络异常,让用户点击设置网络
+            mPageStateLayout.showNetError();
+        } else {
+            //服务器异常，展示错误页面，点击刷新
+            mPageStateLayout.showError();
+        }
+    }
 
+    private void setViewData() {
+        if (!TextUtils.isEmpty(data.getData().getYlQual())) {
+            tv_yaliji_qualified.setText(data.getData().getYlQual());
+        }
+        if (!TextUtils.isEmpty(data.getData().getYlDisqual())) {
+            tv_yaliji_unqualified.setText(data.getData().getYlDisqual());
+        }
+        if (!TextUtils.isEmpty(data.getData().getYlHandle())) {
+            tv_yaliji_handle.setText(data.getData().getYlHandle());
+        }
+        if (!TextUtils.isEmpty(data.getData().getYlNoHandle())) {
+            tv_yaliji_not_handle.setText(data.getData().getYlNoHandle());
+        }
+
+        if (!TextUtils.isEmpty(data.getData().getWnQual())) {
+            tv_wannengji_qualified.setText(data.getData().getWnQual());
+        }
+
+        if (!TextUtils.isEmpty(data.getData().getWnDisqual())) {
+            tv_wannengji_unqualified.setText(data.getData().getWnDisqual());
+        }
+
+        if (!TextUtils.isEmpty(data.getData().getWnHandle())) {
+            tv_wannengji_handle.setText(data.getData().getWnHandle());
+        }
+
+        if (!TextUtils.isEmpty(data.getData().getWnNoHandle())) {
+            tv_wannengji_not_handle.setText(data.getData().getWnNoHandle());
+        }
     }
 
     @Override

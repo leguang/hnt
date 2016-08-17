@@ -56,16 +56,16 @@ public class LaboratoryFragmentRecyclerViewAdapter extends RecyclerView.Adapter<
 
                 switch (itemData.getData().get(position).get(i).getTesttype()) {
                     case "100014":
-                        itemInItem.setBackgroundColor(mResources.getColor(R.color.material_green_50));
+                        itemInItem.setBackgroundColor(mResources.getColor(R.color.material_green_100));
                         break;
                     case "100047":
-                        itemInItem.setBackgroundColor(mResources.getColor(R.color.material_Lime_50));
+                        itemInItem.setBackgroundColor(mResources.getColor(R.color.material_Lime_100));
                         break;
                     case "100048":
-                        itemInItem.setBackgroundColor(mResources.getColor(R.color.material_brown_50));
+                        itemInItem.setBackgroundColor(mResources.getColor(R.color.material_brown_100));
                         break;
                     case "100049":
-                        itemInItem.setBackgroundColor(mResources.getColor(R.color.material_blue_50));
+                        itemInItem.setBackgroundColor(mResources.getColor(R.color.material_blue_100));
                         break;
                 }
                 itemInItem.setTestType(itemData.getData().get(position).get(i).getTestName());

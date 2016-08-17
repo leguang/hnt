@@ -359,10 +359,7 @@ public class LaboratoryStatisticFragment extends BaseLazyFragment implements Dat
     @Subscribe
     public void go2TopOrRefresh(EventData event) {
         if (event.position == 2) {
-            KLog.e("go2TopOrRefreshgo2TopOrRefreshgo2TopOrRefreshgo2TopOrRefresh");
             mNestedScrollView.fullScroll(ScrollView.SCROLL_INDICATOR_TOP);
-            KLog.e("go11111111111111111111111111111Refresh");
-
         }
     }
 

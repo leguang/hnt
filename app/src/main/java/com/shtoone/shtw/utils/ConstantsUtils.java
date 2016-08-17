@@ -21,6 +21,7 @@ public class ConstantsUtils {
     public static final String USERGROUPID = "usergroupid";
     public static final String ABOUTWHAT = "aboutwhat";
     public static final String DEPARTMENT = "Department";
+    public static final String SUCCESS = "success";
 
 
     public static final String ABOUTAPP = "http://note.youdao.com/share/?id=37e5d8602c49af15d7589d7f91bd548b&type=note";
