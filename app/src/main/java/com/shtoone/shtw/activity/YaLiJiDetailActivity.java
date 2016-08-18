@@ -103,7 +103,7 @@ public class YaLiJiDetailActivity extends BaseActivity {
     }
 
     private void initDate() {
-        mGson = new Gson();
+//        mGson = new Gson();
         mUserInfoData = BaseApplication.mUserInfoData;
         if ("不合格".equals(mDataBean.getPDJG()) || "无效".equals(mDataBean.getPDJG())) {
             cv_handle.setVisibility(View.VISIBLE);

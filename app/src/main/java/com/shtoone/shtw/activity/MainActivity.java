@@ -103,7 +103,6 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
     }
 
     public void initData() {
-//        BaseApplication.backupParametersData = (ParametersData) BaseApplication.parametersData.clone();
         if (null != BaseApplication.mUserInfoData) {
             if (!TextUtils.isEmpty(BaseApplication.mUserInfoData.getUserFullName())) {
                 tv_username.setText("用户：" + BaseApplication.mUserInfoData.getUserFullName());
@@ -113,15 +112,15 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
             }
         }
 
-        AHBottomNavigationItem item1 = new AHBottomNavigationItem(R.string.laboratory, R.drawable.ic_lab, R.color.base_color);
-        AHBottomNavigationItem item2 = new AHBottomNavigationItem(R.string.concrete, R.drawable.ic_bhz, R.color.base_color);
+        AHBottomNavigationItem item1 = new AHBottomNavigationItem(R.string.laboratory, R.drawable.ic_lab, R.color.white);
+        AHBottomNavigationItem item2 = new AHBottomNavigationItem(R.string.concrete, R.drawable.ic_bhz, R.color.material_yellow_100);
         bottomNavigationItems.add(item1);
         bottomNavigationItems.add(item2);
         bottomNavigation.addItems(bottomNavigationItems);
         bottomNavigation.setDefaultBackgroundColor(getResources().getColor(R.color.white));
-//        bottomNavigation.setBehaviorTranslationEnabled(false);
-//        bottomNavigation.setColored(true);
-//        bottomNavigation.setForceTint(true);
+        bottomNavigation.setBehaviorTranslationEnabled(true);
+        bottomNavigation.setColored(true);
+        bottomNavigation.setForceTint(false);
         bottomNavigation.setAccentColor(getResources().getColor(R.color.base_color));
         bottomNavigation.setInactiveColor(getResources().getColor(R.color.gray));
         bottomNavigation.setForceTitlesDisplay(true);

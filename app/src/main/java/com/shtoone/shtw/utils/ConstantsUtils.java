@@ -38,4 +38,10 @@ public class ConstantsUtils {
     public static final int CAMERA = 1;
     public static final int ALBUM = 2;
     public static final int REFRESH = 11;
+    public static final int YALIJIFABHIDE = 12;
+    public static final int YALIJIFABSHOW = 13;
+    public static final int WANNENGJIFABHIDE = 14;
+    public static final int WANNENGJIFABSHOW = 15;
+    public static final int OVERPROOFFABHIDE = 17;
+    public static final int OVERPROOFFABSHOW = 16;
 }

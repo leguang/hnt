@@ -23,9 +23,9 @@ import com.shtoone.shtw.activity.DialogActivity;
 import com.shtoone.shtw.activity.ProduceQueryDetailActivity;
 import com.shtoone.shtw.adapter.OnItemClickListener;
 import com.shtoone.shtw.adapter.ProduceQueryFragmentRecyclerViewAdapter;
-import com.shtoone.shtw.event.EventData;
 import com.shtoone.shtw.bean.ParametersData;
 import com.shtoone.shtw.bean.ProduceQueryFragmentListData;
+import com.shtoone.shtw.event.EventData;
 import com.shtoone.shtw.fragment.base.BaseLazyFragment;
 import com.shtoone.shtw.ui.PageStateLayout;
 import com.shtoone.shtw.utils.ConstantsUtils;
@@ -41,7 +41,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import in.srain.cube.views.ptr.PtrFrameLayout;
-import in.srain.cube.views.ptr.header.StoreHouseHeader;
 import jp.wasabeef.recyclerview.adapters.ScaleInAnimationAdapter;
 import jp.wasabeef.recyclerview.adapters.SlideInLeftAnimationAdapter;
 
@@ -53,7 +52,6 @@ public class ProduceQueryFragment extends BaseLazyFragment {
     private Toolbar mToolbar;
     private PtrFrameLayout mPtrFrameLayout;
     private RecyclerView mRecyclerView;
-    private StoreHouseHeader header;
     private ProduceQueryFragmentRecyclerViewAdapter mAdapter;
     private ProduceQueryFragmentListData itemsData;
     private FloatingActionButton fab;
@@ -167,13 +165,18 @@ public class ProduceQueryFragment extends BaseLazyFragment {
             public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
                 super.onScrolled(recyclerView, dx, dy);
                 lastVisibleItemPosition = mLinearLayoutManager.findLastVisibleItemPosition();
+
+                if (dy > 5) {
+                    fab.hide();
+                } else if (dy < -5) {
+                    fab.show();
+                }
             }
         });
 
         initPageStateLayout(mPageStateLayout);
         initPtrFrameLayout(mPtrFrameLayout);
     }
-
 
     @Override
     public boolean isCanDoRefresh() {

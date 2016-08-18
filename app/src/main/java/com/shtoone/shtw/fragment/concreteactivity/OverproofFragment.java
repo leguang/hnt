@@ -18,6 +18,7 @@ import com.shtoone.shtw.R;
 import com.shtoone.shtw.activity.DialogActivity;
 import com.shtoone.shtw.adapter.OverproofFragmentViewPagerAdapter;
 import com.shtoone.shtw.bean.ParametersData;
+import com.shtoone.shtw.event.EventData;
 import com.shtoone.shtw.fragment.base.BaseLazyFragment;
 import com.shtoone.shtw.utils.ConstantsUtils;
 import com.socks.library.KLog;
@@ -126,6 +127,15 @@ public class OverproofFragment extends BaseLazyFragment {
                 KLog.e("mParametersData:" + mParametersData.equipmentID);
                 KLog.e("mParametersData:" + mParametersData.handleType);
             }
+        }
+    }
+
+    @Subscribe
+    public void hideOrShowFab(EventData event) {
+        if (event.position == ConstantsUtils.OVERPROOFFABHIDE) {
+            fab.hide();
+        } else if (event.position == ConstantsUtils.OVERPROOFFABSHOW) {
+            fab.show();
         }
     }
 

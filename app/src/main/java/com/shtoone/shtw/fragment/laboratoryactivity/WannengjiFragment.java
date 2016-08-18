@@ -18,6 +18,7 @@ import com.shtoone.shtw.R;
 import com.shtoone.shtw.activity.DialogActivity;
 import com.shtoone.shtw.adapter.WannengjiFragmentViewPagerAdapter;
 import com.shtoone.shtw.bean.ParametersData;
+import com.shtoone.shtw.event.EventData;
 import com.shtoone.shtw.fragment.base.BaseLazyFragment;
 import com.shtoone.shtw.utils.ConstantsUtils;
 import com.socks.library.KLog;
@@ -128,6 +129,15 @@ public class WannengjiFragment extends BaseLazyFragment {
                 KLog.e("mParametersData:" + mParametersData.equipmentID);
                 KLog.e("mParametersData:" + mParametersData.testTypeID);
             }
+        }
+    }
+
+    @Subscribe
+    public void hideOrShowFab(EventData event) {
+        if (event.position == ConstantsUtils.WANNENGJIFABHIDE) {
+            fab.hide();
+        } else if (event.position == ConstantsUtils.WANNENGJIFABSHOW) {
+            fab.show();
         }
     }
 

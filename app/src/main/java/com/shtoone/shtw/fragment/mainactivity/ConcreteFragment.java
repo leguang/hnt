@@ -32,6 +32,7 @@ import com.shtoone.shtw.fragment.base.BaseLazyFragment;
 import com.shtoone.shtw.ui.PageStateLayout;
 import com.shtoone.shtw.utils.AnimationUtils;
 import com.shtoone.shtw.utils.ConstantsUtils;
+import com.shtoone.shtw.utils.DensityUtils;
 import com.shtoone.shtw.utils.NetworkUtils;
 import com.shtoone.shtw.utils.URL;
 import com.squareup.otto.Subscribe;
@@ -135,6 +136,7 @@ public class ConcreteFragment extends BaseLazyFragment {
             }
         });
 
+        mPageStateLayout.setPadding(0, 0, 0, DensityUtils.dp2px(_mActivity, 56));
         initPageStateLayout(mPageStateLayout);
         initPtrFrameLayout(mPtrFrameLayout);
     }

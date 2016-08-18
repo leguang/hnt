@@ -83,16 +83,16 @@ public class OverproofFragmentViewPagerFragment extends BaseFragment {
             BaseApplication.bus.register(this);
             isRegistered = true;
         }
-        View view = inflater.inflate(R.layout.fragment_view_pager_overproof_fragment, container, false);
+        View view = inflater.inflate(R.layout.recyclerview, container, false);
         initView(view);
         initData();
         return view;
     }
 
     private void initView(View view) {
-        mRecyclerView = (RecyclerView) view.findViewById(R.id.rv_fragment_view_pager_overproof_fragment);
-        mPtrFrameLayout = (PtrFrameLayout) view.findViewById(R.id.ptr_fragment_view_pager_overproof_fragment);
-        mPageStateLayout = (PageStateLayout) view.findViewById(R.id.psl_fragment_view_pager_overproof_fragment);
+        mPtrFrameLayout = (PtrFrameLayout) view.findViewById(R.id.ptrframelayout);
+        mPageStateLayout = (PageStateLayout) view.findViewById(R.id.pagestatelayout);
+        mRecyclerView = (RecyclerView) view.findViewById(R.id.recyclerview);
     }
 
     private void initData() {
@@ -142,6 +142,12 @@ public class OverproofFragmentViewPagerFragment extends BaseFragment {
             public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
                 super.onScrolled(recyclerView, dx, dy);
                 lastVisibleItemPosition = mLinearLayoutManager.findLastVisibleItemPosition();
+
+                if (dy > 5) {
+                    BaseApplication.bus.post(new EventData(ConstantsUtils.OVERPROOFFABHIDE));
+                } else if (dy < -5) {
+                    BaseApplication.bus.post(new EventData(ConstantsUtils.OVERPROOFFABSHOW));
+                }
             }
         });
         initPageStateLayout(mPageStateLayout);
@@ -384,6 +390,19 @@ public class OverproofFragmentViewPagerFragment extends BaseFragment {
             mPtrFrameLayout.autoRefresh(true);
         }
     }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        BaseApplication.bus.post(new EventData(ConstantsUtils.OVERPROOFFABSHOW));
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        BaseApplication.bus.post(new EventData(ConstantsUtils.OVERPROOFFABSHOW));
+    }
+
 
     @Override
     public void onDestroy() {

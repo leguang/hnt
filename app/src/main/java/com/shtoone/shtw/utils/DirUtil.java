@@ -6,7 +6,7 @@ import android.os.Environment;
 import java.io.File;
 
 public class DirUtil {
-
+	private static final String TAG = DirUtil.class.getSimpleName();
 	private DirUtil() {
         /* cannot be instantiated */
 		throw new UnsupportedOperationException("cannot be instantiated");

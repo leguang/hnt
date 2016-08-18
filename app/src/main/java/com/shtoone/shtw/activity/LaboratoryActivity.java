@@ -60,19 +60,19 @@ public class LaboratoryActivity extends BaseActivity {
 
     public void initData() {
 
-        AHBottomNavigationItem item1 = new AHBottomNavigationItem(R.string.yaliji, R.drawable.ic_yaliji, R.color.base_color);
-        AHBottomNavigationItem item2 = new AHBottomNavigationItem(R.string.wannengji, R.drawable.ic_wannengji, R.color.base_color);
-        AHBottomNavigationItem item3 = new AHBottomNavigationItem(R.string.statistic, R.drawable.ic_statistic, R.color.base_color);
+        AHBottomNavigationItem item1 = new AHBottomNavigationItem(R.string.yaliji, R.drawable.ic_yaliji, R.color.white);
+        AHBottomNavigationItem item2 = new AHBottomNavigationItem(R.string.wannengji, R.drawable.ic_wannengji, R.color.material_yellow_100);
+        AHBottomNavigationItem item3 = new AHBottomNavigationItem(R.string.statistic, R.drawable.ic_statistic, R.color.material_green_100);
         bottomNavigationItems.add(item1);
         bottomNavigationItems.add(item2);
         bottomNavigationItems.add(item3);
         bottomNavigation.addItems(bottomNavigationItems);
         bottomNavigation.setDefaultBackgroundColor(getResources().getColor(R.color.white));
         bottomNavigation.setBehaviorTranslationEnabled(false);
+        bottomNavigation.setColored(true);
+        bottomNavigation.setForceTint(false);
         bottomNavigation.setAccentColor(getResources().getColor(R.color.base_color));
         bottomNavigation.setInactiveColor(getResources().getColor(R.color.gray));
-//        bottomNavigation.setColored(true);
-//        bottomNavigation.setForceTint(true);
         bottomNavigation.setForceTitlesDisplay(true);
 
         bottomNavigation.setOnTabSelectedListener(new AHBottomNavigation.OnTabSelectedListener() {

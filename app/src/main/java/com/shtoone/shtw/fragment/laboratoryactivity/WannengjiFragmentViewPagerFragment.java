@@ -143,6 +143,12 @@ public class WannengjiFragmentViewPagerFragment extends BaseFragment {
             public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
                 super.onScrolled(recyclerView, dx, dy);
                 lastVisibleItemPosition = mLinearLayoutManager.findLastVisibleItemPosition();
+
+                if (dy > 5) {
+                    BaseApplication.bus.post(new EventData(ConstantsUtils.WANNENGJIFABHIDE));
+                } else if (dy < -5) {
+                    BaseApplication.bus.post(new EventData(ConstantsUtils.WANNENGJIFABSHOW));
+                }
             }
         });
         initPageStateLayout(mPageStateLayout);
@@ -379,7 +385,6 @@ public class WannengjiFragmentViewPagerFragment extends BaseFragment {
     public void go2TopOrRefresh(EventData event) {
         if (event.position == 1) {
             mRecyclerView.smoothScrollToPosition(0);
-            KLog.e("go11111111111111111111111111111Refresh");
         }
     }
 
@@ -388,6 +393,18 @@ public class WannengjiFragmentViewPagerFragment extends BaseFragment {
         if (event.position == ConstantsUtils.REFRESH) {
             mPtrFrameLayout.autoRefresh(true);
         }
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        BaseApplication.bus.post(new EventData(ConstantsUtils.WANNENGJIFABSHOW));
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        BaseApplication.bus.post(new EventData(ConstantsUtils.WANNENGJIFABSHOW));
     }
 
     @Override

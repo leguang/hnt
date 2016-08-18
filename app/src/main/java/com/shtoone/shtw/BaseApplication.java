@@ -8,6 +8,7 @@ import com.android.volley.toolbox.Volley;
 import com.shtoone.shtw.bean.DepartmentData;
 import com.shtoone.shtw.bean.ParametersData;
 import com.shtoone.shtw.bean.UserInfoData;
+import com.shtoone.shtw.exception.AppExceptionHandler;
 import com.socks.library.KLog;
 import com.squareup.leakcanary.LeakCanary;
 import com.squareup.leakcanary.RefWatcher;
@@ -32,12 +33,15 @@ public class BaseApplication extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
+        //日志的开关和全局标签初始化
         KLog.init(true, "SHTW");
         application = this;
         context = getApplicationContext();
-        // 添加功能：程序异常关闭1s之后重新启动
-
+        // 程序异常交由AppExceptionHandler来处理
+        Thread.setDefaultUncaughtExceptionHandler(AppExceptionHandler.getInstance(this));
+        //创建Volley的请求队列
         mRequestQueue = Volley.newRequestQueue(getApplicationContext());
+        //创建LeakCanary对象，观察内存泄漏
         mRefWatcher = LeakCanary.install(this);
     }
 }

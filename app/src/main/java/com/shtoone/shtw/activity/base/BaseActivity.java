@@ -13,6 +13,7 @@ import com.android.volley.VolleyError;
 import com.sdsmdg.tastytoast.TastyToast;
 import com.shtoone.shtw.R;
 import com.shtoone.shtw.ui.PageStateLayout;
+import com.shtoone.shtw.utils.ActivityManagerUtils;
 import com.shtoone.shtw.utils.ConstantsUtils;
 import com.shtoone.shtw.utils.DisplayUtils;
 import com.shtoone.shtw.utils.HttpUtils;
@@ -35,6 +36,9 @@ public abstract class BaseActivity extends SwipeBackActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        //把每一个Activity加入栈中
+        ActivityManagerUtils.getInstance().addActivity(this);
+
         if (!NetworkUtils.isConnected(getApplicationContext())) {
             View view = getWindow().getDecorView();
             Snackbar mSnackbar = Snackbar.make(view, "当前网络已断开！", Snackbar.LENGTH_LONG)
@@ -271,5 +275,12 @@ public abstract class BaseActivity extends SwipeBackActivity {
     protected void onPause() {
         super.onPause();
         MobclickAgent.onPause(this);
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        //把每一个Activity弹出栈
+        ActivityManagerUtils.getInstance().removeActivity(this);
     }
 }

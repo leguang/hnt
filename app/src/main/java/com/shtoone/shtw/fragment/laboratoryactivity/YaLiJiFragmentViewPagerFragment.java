@@ -1,10 +1,8 @@
 package com.shtoone.shtw.fragment.laboratoryactivity;
 
 import android.content.Intent;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v7.widget.CardView;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
@@ -21,9 +19,9 @@ import com.shtoone.shtw.R;
 import com.shtoone.shtw.activity.YaLiJiDetailActivity;
 import com.shtoone.shtw.adapter.OnItemClickListener;
 import com.shtoone.shtw.adapter.YaLiJiFragmentViewPagerFragmentRecyclerViewAdapter;
-import com.shtoone.shtw.event.EventData;
 import com.shtoone.shtw.bean.ParametersData;
 import com.shtoone.shtw.bean.YalijiFragmentViewPagerFragmentRecyclerViewItemData;
+import com.shtoone.shtw.event.EventData;
 import com.shtoone.shtw.fragment.base.BaseFragment;
 import com.shtoone.shtw.ui.PageStateLayout;
 import com.shtoone.shtw.utils.ConstantsUtils;
@@ -143,6 +141,12 @@ public class YaLiJiFragmentViewPagerFragment extends BaseFragment {
             public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
                 super.onScrolled(recyclerView, dx, dy);
                 lastVisibleItemPosition = mLinearLayoutManager.findLastVisibleItemPosition();
+
+                if (dy > 5) {
+                    BaseApplication.bus.post(new EventData(ConstantsUtils.YALIJIFABHIDE));
+                } else if (dy < -5) {
+                    BaseApplication.bus.post(new EventData(ConstantsUtils.YALIJIFABSHOW));
+                }
             }
         });
 
@@ -347,8 +351,7 @@ public class YaLiJiFragmentViewPagerFragment extends BaseFragment {
     }
 
     private void changeItemState(View view) {
-//        view.setBackgroundColor(Color.parseColor("#0a000000"));//不能这样设置，不然进入详情页的时候，点击处置，由于键盘把整个window上顶，会使得由于setBackgroundColor而崩溃
-        ((CardView) view).setCardBackgroundColor(Color.parseColor("#0a000000"));
+//        ((CardView) view).setCardBackgroundColor(Color.parseColor("#0a000000"));
     }
 
     //进入YaLiJiDetailActivity
@@ -381,7 +384,6 @@ public class YaLiJiFragmentViewPagerFragment extends BaseFragment {
     public void go2TopOrRefresh(EventData event) {
         if (event.position == 0) {
             mRecyclerView.smoothScrollToPosition(0);
-            KLog.e("go11111111111111111111111111111Refresh");
         }
     }
 
@@ -390,6 +392,18 @@ public class YaLiJiFragmentViewPagerFragment extends BaseFragment {
         if (event.position == ConstantsUtils.REFRESH) {
             mPtrFrameLayout.autoRefresh(true);
         }
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        BaseApplication.bus.post(new EventData(ConstantsUtils.YALIJIFABSHOW));
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        BaseApplication.bus.post(new EventData(ConstantsUtils.YALIJIFABSHOW));
     }
 
     @Override
