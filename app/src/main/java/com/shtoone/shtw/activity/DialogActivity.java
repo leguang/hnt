@@ -519,4 +519,9 @@ public class DialogActivity extends BaseActivity implements View.OnClickListener
     public String createRefreshULR() {
         return url;
     }
+
+    @Override
+    public boolean swipeBackPriority() {
+        return false;
+    }
 }
