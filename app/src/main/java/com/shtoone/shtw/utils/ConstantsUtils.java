@@ -22,6 +22,7 @@ public class ConstantsUtils {
     public static final String ABOUTWHAT = "aboutwhat";
     public static final String DEPARTMENT = "Department";
     public static final String SUCCESS = "success";
+    public static final String ENCRYPT_KEY = "leguang";
 
 
     public static final String ABOUTAPP = "http://note.youdao.com/share/?id=37e5d8602c49af15d7589d7f91bd548b&type=note";
@@ -44,4 +45,5 @@ public class ConstantsUtils {
     public static final int WANNENGJIFABSHOW = 15;
     public static final int OVERPROOFFABHIDE = 17;
     public static final int OVERPROOFFABSHOW = 16;
+    public static final int NOTIFY_REFRESH = 22;
 }

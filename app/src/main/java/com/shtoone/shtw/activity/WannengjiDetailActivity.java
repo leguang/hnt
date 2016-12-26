@@ -28,7 +28,9 @@ import com.shtoone.shtw.adapter.WannengjiDetailActivityChartViewPagerAdapter;
 import com.shtoone.shtw.bean.UserInfoData;
 import com.shtoone.shtw.bean.WannengjiDetailData;
 import com.shtoone.shtw.bean.WannengjiFragmentViewPagerFragmentRecyclerViewItemData;
+import com.shtoone.shtw.event.EventData;
 import com.shtoone.shtw.ui.PageStateLayout;
+import com.shtoone.shtw.utils.ConstantsUtils;
 import com.shtoone.shtw.utils.HttpUtils;
 import com.shtoone.shtw.utils.NetworkUtils;
 import com.shtoone.shtw.utils.URL;
@@ -69,6 +71,7 @@ public class WannengjiDetailActivity extends BaseActivity {
     private String handleReason;
     private WannengjiFragmentViewPagerFragmentRecyclerViewItemData.DataBean mDataBean;
     private Gson mGson;
+    private boolean isSubmit;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -274,6 +277,7 @@ public class WannengjiDetailActivity extends BaseActivity {
 
                     if (jsonObject.optBoolean("success")) {
                         TastyToast.makeText(getApplicationContext(), "上传成功!", TastyToast.LENGTH_SHORT, TastyToast.SUCCESS);
+                        isSubmit = true;
                     } else {
                         TastyToast.makeText(getApplicationContext(), "上传失败，请重试！", TastyToast.LENGTH_SHORT, TastyToast.ERROR);
                     }
@@ -320,6 +324,9 @@ public class WannengjiDetailActivity extends BaseActivity {
         mTabLayout.setupWithViewPager(mViewPager);
         if (!TextUtils.isEmpty(mWannengjiDetailData.getData().getChuli())) {
             et_handle_reason.getEditText().setText(mWannengjiDetailData.getData().getChuli());
+            et_handle_reason.setEnabled(false);
+            bt_submit.setEnabled(false);
+            bt_reset.setEnabled(false);
         }
     }
 
@@ -331,5 +338,13 @@ public class WannengjiDetailActivity extends BaseActivity {
             sb.append(getString(R.string.detail)).trimToSize();
             mToolbar.setTitle(sb.toString());
         }
+    }
+
+    @Override
+    public void onBackPressed() {
+        if (isSubmit) {
+            BaseApplication.bus.post(new EventData(ConstantsUtils.NOTIFY_REFRESH));
+        }
+        super.onBackPressed();
     }
 }

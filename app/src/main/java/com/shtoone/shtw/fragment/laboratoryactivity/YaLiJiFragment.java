@@ -65,7 +65,9 @@ public class YaLiJiFragment extends BaseLazyFragment {
 
     @Override
     protected void initLazyView(@Nullable Bundle savedInstanceState) {
-        initData();
+        if (savedInstanceState == null) {
+            initData();
+        }
     }
 
     private void initData() {

@@ -205,22 +205,22 @@ public class OverproofDetailActivity extends BaseActivity implements TimePickerD
         setToolbarTitle();
         initToolbarBackNavigation(mToolbar);
         setSupportActionBar(mToolbar);
-
-        et_handle_time.getEditText().setOnTouchListener(new View.OnTouchListener() {
-            @Override
-            public boolean onTouch(View view, MotionEvent motionEvent) {
-
-                switch (motionEvent.getAction()) {
-                    case MotionEvent.ACTION_DOWN:
-                        isHandleDateTime = true;
-                        isConfirmDateTime = false;
-                        isApproveDateTime = false;
-                        showDatePicker();
-                        break;
-                }
-                return true;
-            }
-        });
+//
+//        et_handle_time.getEditText().setOnTouchListener(new View.OnTouchListener() {
+//            @Override
+//            public boolean onTouch(View view, MotionEvent motionEvent) {
+//
+//                switch (motionEvent.getAction()) {
+//                    case MotionEvent.ACTION_DOWN:
+//                        isHandleDateTime = true;
+//                        isConfirmDateTime = false;
+//                        isApproveDateTime = false;
+//                        showDatePicker();
+//                        break;
+//                }
+//                return true;
+//            }
+//        });
 
         et_confirm_date.getEditText().setOnTouchListener(new View.OnTouchListener() {
             @Override
@@ -238,21 +238,21 @@ public class OverproofDetailActivity extends BaseActivity implements TimePickerD
             }
         });
 
-        et_approve_date.getEditText().setOnTouchListener(new View.OnTouchListener() {
-            @Override
-            public boolean onTouch(View view, MotionEvent motionEvent) {
-
-                switch (motionEvent.getAction()) {
-                    case MotionEvent.ACTION_DOWN:
-                        isHandleDateTime = false;
-                        isConfirmDateTime = false;
-                        isApproveDateTime = true;
-                        showDatePicker();
-                        break;
-                }
-                return true;
-            }
-        });
+//        et_approve_date.getEditText().setOnTouchListener(new View.OnTouchListener() {
+//            @Override
+//            public boolean onTouch(View view, MotionEvent motionEvent) {
+//
+//                switch (motionEvent.getAction()) {
+//                    case MotionEvent.ACTION_DOWN:
+//                        isHandleDateTime = false;
+//                        isConfirmDateTime = false;
+//                        isApproveDateTime = true;
+//                        showDatePicker();
+//                        break;
+//                }
+//                return true;
+//            }
+//        });
 
         iv_photo_select.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -589,7 +589,6 @@ public class OverproofDetailActivity extends BaseActivity implements TimePickerD
                 } else {
                     progressDialog.dismiss();
                     TastyToast.makeText(getApplicationContext(), "上传失败，请重试！", TastyToast.LENGTH_SHORT, TastyToast.ERROR);
-
                 }
             }
         };
@@ -698,12 +697,11 @@ public class OverproofDetailActivity extends BaseActivity implements TimePickerD
 
 
         //设置处置部分是否显示
-        if (mUserInfoData.getQuanxian().isSyschaobiaoReal()) {
+        if (mUserInfoData.getQuanxian().isSyschaobiaoReal() && TextUtils.isEmpty(data.getHeadMsg().getWentiyuanyin())) {
             bt_handle_submit.setEnabled(true);
             bt_handle_reset.setEnabled(true);
 
             if (!TextUtils.isEmpty(data.getHeadMsg().getFilePath())) {
-
                 String imageURL = URL.BaseURL + data.getHeadMsg().getFilePath();
                 Glide.with(getApplicationContext()).load(imageURL).crossFade().into(iv_photo_select);
             }
@@ -735,7 +733,7 @@ public class OverproofDetailActivity extends BaseActivity implements TimePickerD
         }
 
         //设置审批部分是否显示
-        if (mUserInfoData.getQuanxian().isHntchaobiaoSp() && !TextUtils.isEmpty(data.getHeadMsg().getWentiyuanyin())) {
+        if (mUserInfoData.getQuanxian().isHntchaobiaoSp() && TextUtils.isEmpty(data.getHeadMsg().getJianlishenpi())) {
             bt_examine_submit.setEnabled(true);
             bt_examine_reset.setEnabled(true);
 

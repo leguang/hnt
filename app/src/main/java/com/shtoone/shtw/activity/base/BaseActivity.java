@@ -39,6 +39,9 @@ public abstract class BaseActivity extends SwipeBackActivity {
         //把每一个Activity加入栈中
         ActivityManagerUtils.getInstance().addActivity(this);
 
+        //一旦启动某个Activity就打印Log，方便找到该类
+        KLog.e(getClass().getName());
+
         if (!NetworkUtils.isConnected(getApplicationContext())) {
             View view = getWindow().getDecorView();
             Snackbar mSnackbar = Snackbar.make(view, "当前网络已断开！", Snackbar.LENGTH_LONG)
@@ -279,8 +282,8 @@ public abstract class BaseActivity extends SwipeBackActivity {
 
     @Override
     protected void onDestroy() {
-        super.onDestroy();
         //把每一个Activity弹出栈
         ActivityManagerUtils.getInstance().removeActivity(this);
+        super.onDestroy();
     }
 }

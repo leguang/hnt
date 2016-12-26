@@ -34,7 +34,7 @@ public class BaseApplication extends Application {
     public void onCreate() {
         super.onCreate();
         //日志的开关和全局标签初始化
-        KLog.init(true, "SHTW");
+        KLog.init(true, "SHTW混凝土");
         application = this;
         context = getApplicationContext();
         // 程序异常交由AppExceptionHandler来处理

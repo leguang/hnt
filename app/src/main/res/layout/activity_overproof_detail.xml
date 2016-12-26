@@ -11,7 +11,6 @@
         android:background="@color/material_grey_50"
         android:orientation="vertical">
 
-
         <include layout="@layout/toolbar" />
 
         <in.srain.cube.views.ptr.PtrFrameLayout xmlns:cube_ptr="http://schemas.android.com/apk/res-auto"

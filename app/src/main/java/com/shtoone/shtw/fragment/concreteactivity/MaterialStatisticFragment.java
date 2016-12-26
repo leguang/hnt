@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.widget.NestedScrollView;
+import android.support.v4.widget.TextViewCompat;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
@@ -15,6 +16,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.OvershootInterpolator;
 import android.widget.ScrollView;
+import android.widget.TextView;
 
 import com.android.volley.VolleyError;
 import com.github.mikephil.charting.charts.BarChart;
@@ -71,6 +73,8 @@ public class MaterialStatisticFragment extends BaseLazyFragment {
     private ParametersData mParametersData;
     private Gson mGson;
     private LinearLayoutManager mLinearLayoutManager;
+    private TextView tv_switch;
+    private boolean isKg = true;
 
     public static MaterialStatisticFragment newInstance() {
         return new MaterialStatisticFragment();
@@ -97,6 +101,10 @@ public class MaterialStatisticFragment extends BaseLazyFragment {
         mBarChart0 = (BarChart) view.findViewById(R.id.barchart0_material_statistic_fragment);
         mBarChart1 = (BarChart) view.findViewById(R.id.barchart1_material_statistic_fragment);
         mRecyclerView = (RecyclerView) view.findViewById(R.id.rv_material_statistic_fragment);
+
+
+        tv_switch = (TextView) view.findViewById(R.id.tv_switch_material_statistic_fragment);
+
     }
 
     @Override
@@ -227,6 +235,33 @@ public class MaterialStatisticFragment extends BaseLazyFragment {
         ScaleInAnimationAdapter mScaleInAnimationAdapter = new ScaleInAnimationAdapter(mSlideInLeftAnimationAdapter);
         mScaleInAnimationAdapter.setFirstOnly(true);
         mRecyclerView.setAdapter(mScaleInAnimationAdapter);
+
+        final List<MaterialStatisticFragmentData.DataBean> listData = new ArrayList<>();
+        for (int i = 0; i < data.getData().size(); i++) {
+            MaterialStatisticFragmentData.DataBean itemT = new MaterialStatisticFragmentData.DataBean();
+            MaterialStatisticFragmentData.DataBean itemKg = data.getData().get(i);
+            itemT.setName(itemKg.getName());
+            itemT.setPeibi(itemKg.getPeibi());
+
+            //除以1000得到单位为吨的数据
+
+
+            itemT.setShiji(itemKg.getShiji());
+            itemT.setWuchazhi(itemKg.getWuchazhi());
+            listData.add(i, itemT);
+        }
+
+        tv_switch.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                isKg = !isKg;
+                if (isKg) {
+                    mAdapter.setNewData(data.getData());
+                } else {
+                    mAdapter.setNewData(listData);
+                }
+            }
+        });
     }
 
     private void setChartData(BarChart mBarChart, ArrayList<String> x, ArrayList<BarEntry> y) {

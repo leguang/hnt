@@ -13,7 +13,6 @@ import android.util.Log;
 
 import com.afollestad.materialdialogs.DialogAction;
 import com.afollestad.materialdialogs.MaterialDialog;
-import com.shtoone.shtw.activity.AboutActivity;
 import com.shtoone.shtw.activity.SplashActivity;
 import com.shtoone.shtw.utils.ActivityManagerUtils;
 
@@ -47,7 +46,7 @@ import java.util.Map;
 @SuppressWarnings("unused")
 public class AppExceptionHandler implements Thread.UncaughtExceptionHandler {
 
-    private static final String TAG = AboutActivity.class.getSimpleName();
+    private static final String TAG = AppExceptionHandler.class.getSimpleName();
 
     //系统默认的UncaughtException处理类
     private Thread.UncaughtExceptionHandler mDefaultHandler;

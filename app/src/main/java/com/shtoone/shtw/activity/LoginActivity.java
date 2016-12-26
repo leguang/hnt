@@ -139,11 +139,9 @@ public class LoginActivity extends BaseActivity {
                 String username = login_username.getEditText().getText().toString().trim();
                 String password = login_password.getEditText().getText().toString().trim();
                 //进行加密
-                final String usernameEncrypted;
-                final String passwordEncrypted;
                 try {
-                    usernameEncrypted = AESCryptUtils.encrypt("leguang", username);
-                    passwordEncrypted = AESCryptUtils.encrypt("leguang", password);
+                    final String usernameEncrypted = AESCryptUtils.encrypt(ConstantsUtils.ENCRYPT_KEY, username);
+                    final String passwordEncrypted = AESCryptUtils.encrypt(ConstantsUtils.ENCRYPT_KEY, password);
                     KLog.e("username加密后:" + usernameEncrypted);
                     KLog.e("password加密后:" + passwordEncrypted);
                     if (!TextUtils.isEmpty(username) && !TextUtils.isEmpty(password)) {

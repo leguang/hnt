@@ -6,7 +6,9 @@ import android.widget.Button;
 
 import com.shtoone.shtw.R;
 
-
+/**
+ * 测试之用，无具体用途。
+ */
 public class TestActivity extends Activity {
 
     @Override

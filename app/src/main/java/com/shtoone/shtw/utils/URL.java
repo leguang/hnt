@@ -27,7 +27,7 @@ public class URL {
 //    public static final String BaseURL = "http://120.27.146.66:8083/nxsy/";
 //    public static final String BaseURL = "http://192.168.11.102:8080/qms/";
 //    public static final String BaseURL = "http://192.168.1.105:8080/zgjjqms/";
-    public static final String BaseURL = "http://192.168.11.128:8080/zgjjqms/";
+    public static final String BaseURL = "http://192.168.11.128:8081/zgjjqms/";
 
 
     /**

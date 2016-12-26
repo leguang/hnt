@@ -11,6 +11,7 @@ import android.widget.TextView;
 import com.shtoone.shtw.R;
 import com.shtoone.shtw.bean.MaterialStatisticFragmentData;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -71,4 +72,10 @@ public class MaterialStatisticFragmentRecyclerViewAdapter extends RecyclerView.A
             tv_deviation = (TextView) view.findViewById(R.id.tv_deviation_item_recyclerview_material_statistic_fragment);
         }
     }
+
+    public void setNewData(List<MaterialStatisticFragmentData.DataBean> data) {
+        this.itemsData = (List) (data == null ? new ArrayList() : data);
+        this.notifyDataSetChanged();
+    }
+
 }

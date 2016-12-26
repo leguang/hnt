@@ -90,37 +90,27 @@ public class SplashActivity extends BaseActivity {
                                 BaseApplication.mUserInfoData = userInfoData;
                                 initParametersData();
                                 //在跳转之前判断是否按了返回键返回桌面了，这代表用户不想进应用了
-                                if (!isBackPressed) {
-                                    jumpToMain();
-                                }
+                                jumpToMain();
 
                             } else {
                                 //提示用户名或密码错误,有可能用户在Web端改了密码
-                                if (!isBackPressed) {
-                                    jumpToLogin();
-                                }
+                                jumpToLogin();
 
                             }
                         } else {
                             //提示数据解析异常，与硬件和系统有关的问题，几乎不可能出现
-                            if (!isBackPressed) {
-                                jumpToLogin();
-                            }
+                            jumpToLogin();
                         }
                     } else {
                         //提示返回数据异常，丢包的情况，几乎不会出现
-                        if (!isBackPressed) {
-                            jumpToLogin();
-                        }
+                        jumpToLogin();
                     }
                 }
 
                 @Override
                 public void onFailed(VolleyError error) {
                     //提示网络数据异常，无网络
-                    if (!isBackPressed) {
-                        jumpToLogin();
-                    }
+                    jumpToLogin();
                 }
             });
 
@@ -133,6 +123,9 @@ public class SplashActivity extends BaseActivity {
 
     //进入LoginActivity
     private void jumpToLogin() {
+        if (isBackPressed) {
+            return;
+        }
         Boolean isFirstentry = (Boolean) SharedPreferencesUtils.get(this, ConstantsUtils.ISFIRSTENTRY, true);
         Intent intent;
         if (isFirstentry) {
@@ -146,30 +139,25 @@ public class SplashActivity extends BaseActivity {
 
     //进入MainActivity
     private void jumpToMain() {
-
-        Boolean isFirstentry = (Boolean) SharedPreferencesUtils.get(this, ConstantsUtils.ISFIRSTENTRY, true);
+        if (isBackPressed) {
+            return;
+        }
         Intent intent = null;
-        if (isFirstentry) {
-            intent = new Intent(this, GuideActivity.class);
+        if ("GL".equals(userInfoData.getType())) {
+            intent = new Intent(this, MainActivity.class);
 
-        } else {
-            if ("GL".equals(userInfoData.getType())) {
-                intent = new Intent(this, MainActivity.class);
+        } else if ("SG".equals(userInfoData.getType())) {
 
-            } else if ("SG".equals(userInfoData.getType())) {
-
-                switch (userInfoData.getUserRole()) {
-                    case "1":
-                        intent = new Intent(this, ConcreteMainActivity.class);
-                        break;
-                    case "3":
-                        intent = new Intent(this, LaboratoryMainActivity.class);
-                        break;
-                }
+            switch (userInfoData.getUserRole()) {
+                case "1":
+                    intent = new Intent(this, ConcreteMainActivity.class);
+                    break;
+                case "3":
+                    intent = new Intent(this, LaboratoryMainActivity.class);
+                    break;
             }
         }
         startActivity(intent);
-
         finish();
     }
 
@@ -188,6 +176,11 @@ public class SplashActivity extends BaseActivity {
     @Override
     protected void onNewIntent(Intent intent) {
         super.onNewIntent(intent);
-        setIntent(intent);// 必须要调用这句
+        setIntent(intent);// 必须要调用这句，信鸽推送中的要求
+    }
+
+    @Override
+    public boolean swipeBackPriority() {
+        return false;
     }
 }

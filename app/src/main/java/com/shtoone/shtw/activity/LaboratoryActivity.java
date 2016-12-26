@@ -4,6 +4,7 @@ import android.animation.Animator;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.ViewAnimationUtils;
+import android.view.ViewGroup;
 import android.view.animation.AccelerateDecelerateInterpolator;
 import android.widget.FrameLayout;
 
@@ -12,11 +13,15 @@ import com.aurelhubert.ahbottomnavigation.AHBottomNavigationItem;
 import com.shtoone.shtw.BaseApplication;
 import com.shtoone.shtw.R;
 import com.shtoone.shtw.activity.base.BaseActivity;
+import com.shtoone.shtw.bean.ParametersData;
+import com.shtoone.shtw.common.Dialoghelper;
 import com.shtoone.shtw.event.EventData;
 import com.shtoone.shtw.fragment.laboratoryactivity.LaboratoryStatisticFragment;
 import com.shtoone.shtw.fragment.laboratoryactivity.WannengjiFragment;
 import com.shtoone.shtw.fragment.laboratoryactivity.YaLiJiFragment;
+import com.shtoone.shtw.utils.ConstantsUtils;
 import com.socks.library.KLog;
+import com.squareup.otto.Subscribe;
 
 import java.util.ArrayList;
 
@@ -94,7 +99,7 @@ public class LaboratoryActivity extends BaseActivity {
                             int cy = fl_container.getBottom();
                             int radius = Math.max(fl_container.getWidth(), fl_container.getHeight());
                             Animator mAnimator = ViewAnimationUtils.createCircularReveal(fl_container, cx, cy, 0, radius);
-                            mAnimator.setDuration(300);
+                            mAnimator.setDuration(3000);
                             mAnimator.setInterpolator(new AccelerateDecelerateInterpolator());
                             mAnimator.start();
                         }
@@ -121,5 +126,13 @@ public class LaboratoryActivity extends BaseActivity {
         }
 
         bottomNavigation.setCurrentItem(currentItem);
+    }
+
+    @Subscribe
+    public void updateSearch(EventData mEventData) {
+        if (mEventData.position == ConstantsUtils.NOTIFY_REFRESH) {
+            ViewGroup viewGroup = (ViewGroup) findViewById(android.R.id.content).getRootView();
+            Dialoghelper.successSnackbar(viewGroup, "恭喜，保存成功", Dialoghelper.APPEAR_FROM_TOP_TO_DOWN);
+        }
     }
 }
